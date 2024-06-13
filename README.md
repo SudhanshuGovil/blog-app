@@ -4,5 +4,7 @@
 - React
 - Redux Toolkit
 - TailwindCSS
+- Formik
+- Yup
 
-Deployed link: [freezing-record.surge.sh](https://freezing-record.surge.sh/)
+Deployed link: https://zesty-pear.surge.sh/
