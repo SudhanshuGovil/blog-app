@@ -43,9 +43,6 @@ const AddEditBlog = () => {
     navigateToHome();
   };
 
-  // const onChange = (e, label) =>
-  //   setBlogDetails({ ...blogDetails, [label]: e.target.value });
-
   return (
     <div className="container mx-auto mt-10">
       <Helmet>
