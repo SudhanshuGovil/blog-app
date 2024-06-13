@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { like, unLike } from "../assets";
 import { truncateText } from "../helpers";
 import { Title } from "../components";
+import { Helmet } from "react-helmet";
 
 const BlogList = () => {
   const blogs = useSelector(selectAllBlogs);
@@ -17,6 +18,9 @@ const BlogList = () => {
 
   return (
     <div className="container mx-2 md:mx-auto mt-10">
+      <Helmet>
+        <title>Blog post app</title>
+      </Helmet>
       <Title title="Discover new blog posts" />
       {blogPost.length ? (
         blogPost.map((each) => (
