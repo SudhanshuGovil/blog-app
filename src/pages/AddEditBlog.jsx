@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v1 as uuid } from "uuid";
 import { addNewBlog, editBlog, selectors } from "../reducers/blogs";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Title } from "../components";
 import { Helmet } from "react-helmet";
 import * as Yup from "yup";
 import { ROUTES } from "../constant";
 import { Field, Form, Formik } from "formik";
+import { BlogContext } from "../context/BlogContext";
 
-const { HOME } = ROUTES;
+const { HOME, ADD_BLOG } = ROUTES;
 const { selectBlogById } = selectors;
 
 const validationSchema = Yup.object().shape({
@@ -21,7 +22,8 @@ const validationSchema = Yup.object().shape({
 const AddEditBlog = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { blogId } = useParams();
+  const { blogId } = useContext(BlogContext);
+  // const { blogId } = useParams();
   const selectedBlog = useSelector((state) => selectBlogById(state, blogId));
   const [initialValues, setInitialValues] = useState({
     blogId: uuid(),
@@ -33,7 +35,8 @@ const AddEditBlog = () => {
 
   useEffect(() => {
     if (selectedBlog) setInitialValues(selectedBlog);
-  }, [selectedBlog]);
+    else navigate(ADD_BLOG);
+  }, [navigate, selectedBlog]);
 
   const navigateToHome = () => navigate(HOME);
 

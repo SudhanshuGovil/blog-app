@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectAllBlogs } from "../reducers/blogs/blogs.selectors";
 import { Link } from "react-router-dom";
@@ -6,9 +6,11 @@ import { like, unLike } from "../assets";
 import { truncateText } from "../helpers";
 import { Title } from "../components";
 import { Helmet } from "react-helmet";
+import { BlogContext } from "../context/BlogContext";
 
 const BlogList = () => {
   const blogs = useSelector(selectAllBlogs);
+  const { setBlogId } = useContext(BlogContext);
 
   const [blogPost, setBlogPosts] = useState([]);
 
@@ -25,7 +27,7 @@ const BlogList = () => {
       {blogPost.length ? (
         blogPost.map((each) => (
           <div className="ml-1 mb-1" key={each.blogId}>
-            <Link to={`/${each.blogId}`}>
+            <Link onClick={() => setBlogId(each.blogId)} to={`/${each.blogId}`}>
               <div className="flex justify-between content-center mb-2">
                 <h2 className="font-bold text-2xl">{each.title}</h2>
                 <img src={each.like ? like : unLike} width={20} height={20} />

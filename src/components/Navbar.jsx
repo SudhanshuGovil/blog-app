@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import {
   Link,
   matchRoutes,
   useLocation,
   useNavigate,
-  useParams,
+  // useParams,
 } from "react-router-dom";
 import { ROUTES } from "../constant";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteBlog, likeBlog } from "../reducers/blogs";
 import { selectBlogById } from "../reducers/blogs/blogs.selectors";
 import { like, logo, unLike, write } from "../assets";
+import { BlogContext } from "../context/BlogContext";
 
 const { ADD_BLOG, BLOG_DETAILS, EDIT_BLOG, HOME } = ROUTES;
 
@@ -25,7 +26,8 @@ const Navbar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { blogId } = useParams();
+  // const { blogId } = useParams();
+  const { blogId } = useContext(BlogContext);
   const [{ route }] = matchRoutes(routes, location);
   const isHomeRoute = route.path === HOME;
   const isBlogRoute = route.path === BLOG_DETAILS;
@@ -55,7 +57,7 @@ const Navbar = () => {
             <span className="ml-2">Write</span>
           </Link>
         )}
-        {isBlogRoute && (
+        {blogDetails && isBlogRoute && (
           <div className="flex items-center">
             <button className="mr-5" onClick={handleLikeClick}>
               <img
